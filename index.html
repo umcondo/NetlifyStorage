@@ -43,6 +43,12 @@
         color: white;
         padding: 20px;
       }
+      .h-audio {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        padding-left: 10px;
+      }
       .btn {
         border: none;
         background-color: black;
@@ -67,7 +73,13 @@
       loop=""
     ></video>
     <div class="footer">
-      <h1>고양이</h1>
+      <div class="h-audio">
+        <h1>고양이</h1>
+        <!-- 오디오 -->
+        <audio controls onloadstart="this.volume=0.4" autoplay>
+          <source src="./audio/yesterday.mp3" type="audio/mpeg" />
+        </audio>
+      </div>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure
         reprehenderit earum ab quo sed error! Aperiam ullam perspiciatis,
@@ -89,6 +101,7 @@
       <button id="myBtn" class="btn" onclick="myFunction()">Pause</button>
       <!-- <button class="btn">가짜 버튼</button>1 -->
     </div>
+
     <script>
       // getElementById 사용
       // let video = document.getElementById("myVideo");
