@@ -52,6 +52,7 @@
       .btn {
         border: none;
         background-color: black;
+        border-radius: 5px;
         color: white;
         width: 200px;
         height: 40px;
@@ -98,8 +99,17 @@
         delicatissimi pro
       </p>
       <!-- <button class="btn">가짜 버튼2</button> -->
-      <button id="myBtn" class="btn" onclick="myFunction()">Pause</button>
-      <!-- <button class="btn">가짜 버튼</button>1 -->
+      <div style="display: flex; gap: 10px">
+        <button id="myBtn" class="btn" onclick="myFunction()">Pause</button>
+        <!-- <button class="btn">가짜 버튼</button>1 -->
+        <button class="btn" onclick="location.href='https://www.naver.com'">
+          Go Naver
+        </button>
+        <button class="btn" onclick="window.open('https://www.naver.com')">
+          Go Naver <br />
+          (new window)
+        </button>
+      </div>
     </div>
 
     <script>
