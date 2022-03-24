@@ -18,25 +18,64 @@
     <div id="map" style="width: 70%; height: 700px"></div>
     <script>
       const x = document.getElementById("demo");
+      // 초기 경도, 위도 선언
+      let la = 33.450701;
+      let lo = 126.570667;
 
-      let la = 0.0;
-      let lo = 0.0;
+      var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      };
+
+      // 지도 생성
+      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+        mapOption = {
+          center: new kakao.maps.LatLng(la, lo), // 지도의 중심좌표
+          level: 3, // 지도의 확대 레벨
+        };
+
+      var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+      // 처음 화면 마커 생성
+      myMarker();
+
       function getLocation() {
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
+          navigator.geolocation.getCurrentPosition(
+            showPosition,
+            error,
+            options
+          );
         } else {
           x.innerHTML = "Geolocation is not supported by this browser.";
         }
       }
-
+      function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+      }
       function showPosition(position) {
+        ac = Math.floor(position.coords.accuracy);
         la = position.coords.latitude;
         lo = position.coords.longitude;
-        x.innerHTML = "Latitude(위도): " + la + "<br>Longitude(경도): " + lo;
+        x.innerHTML = `Latitude(위도): ${la}<br>Longitude(경도): ${lo}<br><br> ### 참고 ### <br> 현재위치와 약 ${ac}M 정도 차이 날 수 있습니다<br>`;
 
         // 지도이동
         setCenter();
+        // 마커 및 말풍선 생성
+        const text = "마포청년일자리센터";
+        myMarker(text);
+      }
 
+      function setCenter() {
+        // 이동할 위도 경도 위치를 생성합니다
+        var moveLatLon = new kakao.maps.LatLng(la, lo);
+
+        // 지도 중심을 이동 시킵니다
+        map.setCenter(moveLatLon);
+      }
+
+      function myMarker(text) {
         var markerPosition = new kakao.maps.LatLng(la, lo);
 
         // 마커를 생성합니다
@@ -47,44 +86,20 @@
         // 마커가 지도 위에 표시되도록 설정합니다
         marker.setMap(map);
 
-        var iwContent = '<div style="padding:5px;">아무튼 일자리센터임</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-          iwPosition = new kakao.maps.LatLng(la, lo); //인포윈도우 표시 위치입니다
+        if (text) {
+          var iwContent = `<div style="padding:5px;">${text}</div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+            iwPosition = new kakao.maps.LatLng(la, lo); //인포윈도우 표시 위치입니다
 
-        // 인포윈도우를 생성합니다
-        var infowindow = new kakao.maps.InfoWindow({
-          position: iwPosition,
-          content: iwContent,
-        });
+          // 인포윈도우를 생성합니다
+          var infowindow = new kakao.maps.InfoWindow({
+            position: iwPosition,
+            content: iwContent,
+          });
 
-        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-        infowindow.open(map, marker);
-
-        function setCenter() {
-          // 이동할 위도 경도 위치를 생성합니다
-          var moveLatLon = new kakao.maps.LatLng(la, lo);
-
-          // 지도 중심을 이동 시킵니다
-          map.setCenter(moveLatLon);
+          // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+          infowindow.open(map, marker);
         }
       }
-
-      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-        mapOption = {
-          center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-          level: 3, // 지도의 확대 레벨
-        };
-
-      var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-      var markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
-
-      // 마커를 생성합니다
-      var marker = new kakao.maps.Marker({
-        position: markerPosition,
-      });
-
-      // 마커가 지도 위에 표시되도록 설정합니다
-      marker.setMap(map);
     </script>
   </body>
 </html>
