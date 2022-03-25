@@ -18,7 +18,7 @@
     <div id="map" style="width: 70%; height: 700px"></div>
     <script>
       const x = document.getElementById("demo");
-      // 초기 경도, 위도 선언
+      // 초기 경도, 위도 선언, 카카오 본사
       let la = 33.450701;
       let lo = 126.570667;
 
@@ -51,9 +51,11 @@
           x.innerHTML = "Geolocation is not supported by this browser.";
         }
       }
+
       function error(err) {
         console.warn(`ERROR(${err.code}): ${err.message}`);
       }
+
       function showPosition(position) {
         ac = Math.floor(position.coords.accuracy);
         la = position.coords.latitude;
@@ -87,13 +89,15 @@
         marker.setMap(map);
 
         if (text) {
-          var iwContent = `<div style="padding:5px;">${text}</div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-            iwPosition = new kakao.maps.LatLng(la, lo); //인포윈도우 표시 위치입니다
+          var iwContent = `<div style="padding:8px 20px;">${text}</div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+            iwPosition = new kakao.maps.LatLng(la, lo),
+            iwRemoveable = true; //인포윈도우 표시 위치입니다
 
           // 인포윈도우를 생성합니다
           var infowindow = new kakao.maps.InfoWindow({
             position: iwPosition,
             content: iwContent,
+            removable: iwRemoveable,
           });
 
           // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
