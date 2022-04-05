@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tap Header</title>
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+
+      .main > div {
+        display: none;
+        padding: 50px;
+        text-align: center;
+        /* color: white; */
+      }
+      .London {
+        background-color: #f44336;
+        color: white;
+      }
+      .Paris {
+        background: #04aa6d;
+        color: white;
+      }
+      .Tokyo {
+        background: #2196f3;
+        color: white;
+      }
+      .Oslo {
+        background: #ff5722;
+        color: white;
+      }
+
+      nav {
+        display: flex;
+      }
+      .nav-btn {
+        /* background-color: #eeeeee; */
+        width: 25%;
+        padding: 10px 0px;
+        border: none;
+        cursor: pointer;
+        text-align: center;
+      }
+      .nav-btn:hover {
+        background-color: rgb(150, 148, 148);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="main">
+        <div id="London">
+          <h1>London</h1>
+          <p>London is the capital city of England.</p>
+        </div>
+        <div id="Paris">
+          <h1>Paris</h1>
+          <p>Paris is the capital of France.</p>
+        </div>
+        <div id="Tokyo">
+          <h1>Tokyo</h1>
+          <p>Tokyo is the capital of Japan.</p>
+        </div>
+        <div id="Oslo">
+          <h1>Oslo</h1>
+          <p>Oslo is the capital of Norway.</p>
+        </div>
+      </div>
+      <nav>
+        <button class="nav-btn" onclick="changeCity(event,'London')">
+          London
+        </button>
+        <button class="nav-btn" onclick="changeCity(event,'Paris')">
+          Paris
+        </button>
+        <button
+          id="defaultOpen"
+          class="nav-btn"
+          onclick="changeCity(event,'Tokyo')"
+        >
+          Tokyo
+        </button>
+        <button class="nav-btn" onclick="changeCity(event,'Oslo')">Oslo</button>
+      </nav>
+    </header>
+    <script>
+      // 기본 로직 바꾸고 싶은 css를 클래스에 담고
+      // 자바스크립트로 그 클래스를 요소에 추가,삭제함으로써 css 조작
+
+      const changeCity = (e, city) => {
+        let cityList, i, btnList;
+        // 기본 변수 설정
+        cityList = document.querySelectorAll(".main > div");
+        btnList = document.getElementsByClassName("nav-btn");
+        // 클래스 초기화, 화면출력 초기화
+        for (i = 0; i < cityList.length; i++) {
+          cityList[i].classList = "";
+          cityList[i].style.display = "";
+          btnList[i].classList = "nav-btn";
+        }
+        // 본문에 받아온 city인 클래스추가
+        for (i = 0; i < cityList.length; i++) {
+          cityList[i].classList += ` ${city}`;
+        }
+        // city 클래스를 받은 본문 화면출력
+        document.getElementById(city).style.display = "block";
+        // 버튼에 받아온 city인 클래스추가
+        e.currentTarget.classList += ` ${city}`;
+      };
+
+      // 초기화면 조작
+      document.getElementById("defaultOpen").click();
+    </script>
+  </body>
+</html>
