@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tap Header</title>
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+
+      .main > div {
+        display: none;
+        padding: 50px;
+        text-align: center;
+        color: white;
+      }
+      #London {
+        background-color: #f44336;
+      }
+      #Paris {
+        background: #04aa6d;
+      }
+      #Tokyo {
+        background: #2196f3;
+      }
+      #Oslo {
+        background: #ff5722;
+      }
+
+      nav {
+        display: flex;
+      }
+      .nav-btn {
+        background-color: #eeeeee;
+        width: 25%;
+        padding: 10px 0px;
+        border: none;
+        cursor: pointer;
+        text-align: center;
+      }
+      .nav-btn:hover {
+        background-color: rgb(150, 148, 148);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="main">
+        <div id="London">
+          <h1>London</h1>
+          <p>London is the capital city of England.</p>
+        </div>
+        <div id="Paris">
+          <h1>Paris</h1>
+          <p>Paris is the capital of France.</p>
+        </div>
+        <div id="Tokyo">
+          <h1>Tokyo</h1>
+          <p>Tokyo is the capital of Japan.</p>
+        </div>
+        <div id="Oslo">
+          <h1>Oslo</h1>
+          <p>Oslo is the capital of Norway.</p>
+        </div>
+      </div>
+      <nav>
+        <button class="nav-btn" onclick="changeCity('London', this, '#f44336')">
+          London
+        </button>
+        <button class="nav-btn" onclick="changeCity('Paris', this, '#04aa6d')">
+          Paris
+        </button>
+        <button
+          id="defaultOpen"
+          class="nav-btn"
+          onclick="changeCity('Tokyo', this, '#2196f3')"
+        >
+          Tokyo
+        </button>
+        <button class="nav-btn" onclick="changeCity('Oslo', this, '#ff5722')">
+          Oslo
+        </button>
+      </nav>
+    </header>
+    <script>
+      const changeCity = (cityName, elmnt, color) => {
+        //변수 선언
+        let cityList, btnList, i;
+
+        cityList = document.querySelectorAll(".main > div");
+
+        for (i = 0; i < cityList.length; i++) {
+          cityList[i].style.display = "none";
+        }
+
+        // 버튼의 배경색, 글자색 제거
+        btnList = document.getElementsByClassName("nav-btn");
+
+        for (i = 0; i < btnList.length; i++) {
+          btnList[i].style.backgroundColor = "";
+          btnList[i].style.color = "";
+        }
+
+        // 특정 버튼 요소를 보여준다
+        document.getElementById(cityName).style.display = "block";
+
+        // 특정 색을 버튼을 누르면 버튼에 추가한다.
+        elmnt.style.backgroundColor = color;
+        elmnt.style.color = "white";
+      };
+
+      // 기본 값을 설정
+      document.getElementById("defaultOpen").click();
+    </script>
+  </body>
+</html>

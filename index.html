@@ -1,152 +1,39 @@
-<!-- <script>
-  var video = document.getElementById("myVideo");
-  var btn = document.getElementById("myBtn"); 쿼리 셀렉터로 해보기
-
-  function myFunction() {
-    if (video.paused) {
-      video.play();
-      btn.innerHTML = "Pause";
-    } else {
-      video.pause();
-      btn.innerHTML = "Play"; innerHTML이 뭔지 알아보기,
-    }
-  }
-</script> -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cat</title>
+    <title>umcondo's storage</title>
     <style>
-      html {
-        width: 100%;
-        height: 100%;
+      main {
+        margin-top: 30px;
+        margin-left: 30px;
       }
-      body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-      }
-      .vi {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background-color: rgb(0, 0, 0, 0.5);
-        color: white;
-        padding: 20px;
-      }
-      .h-audio {
-        display: flex;
-        gap: 30px;
-        align-items: center;
-        padding-left: 10px;
-      }
-      .btn {
-        border: none;
-        background-color: black;
-        border-radius: 5px;
-        color: white;
-        width: 200px;
-        height: 40px;
-      }
-      .btn:hover {
-        color: black;
-        background-color: white;
-        cursor: pointer;
+      main > ul > li {
+        font-size: 1em;
+        padding: 5px;
       }
     </style>
   </head>
   <body>
-    <video
-      id="myVideo"
-      class="vi"
-      src="video/cat.mp4"
-      autoplay
-      muted
-      loop=""
-    ></video>
-    <div class="footer">
-      <div class="h-audio">
-        <h1>고양이</h1>
-        <!-- 오디오 -->
-        <audio controls onloadstart="this.volume=0.4">
-          <source src="./audio/yesterday.mp3" type="audio/mpeg" />
-        </audio>
-      </div>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure
-        reprehenderit earum ab quo sed error! Aperiam ullam perspiciatis,
-        corporis, doloremque distinctio nemo reprehenderit, earum iure excepturi
-        et nesciunt cum? Tempore! ipsum dolor sit amet, an his etiam torquatos.
-        Tollit soleat phaedrum te duo, eum cu recteque expetendis neglegentur.
-        Cu mentitum maiestatis persequeris pro, pri ponderum tractatos ei. Id
-        qui nemore latine molestiae, ad mutat oblique delicatissimi pro ipsum
-        dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo,
-        eum cu recteque expetendis neglegentur. Cu mentitum maiestatis
-        persequeris pro, pri ponderum tractatos ei. Id qui nemore latine
-        molestiae, ad mutat oblique delicatissimi pro ipsum dolor sit amet, an
-        his etiam torquatos. Tollit soleat phaedrum te duo, eum cu recteque
-        expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri
-        ponderum tractatos ei. Id qui nemore latine molestiae, ad mutat oblique
-        delicatissimi pro
-      </p>
-      <!-- <button class="btn">가짜 버튼2</button> -->
-      <div style="display: flex; gap: 10px">
-        <button id="myBtn" class="btn" onclick="myFunction()">Pause</button>
-        <!-- <button class="btn">가짜 버튼</button>1 -->
-        <button class="btn" onclick="location.href='https://www.naver.com'">
-          Go Naver
-        </button>
-        <button class="btn" onclick="window.open('https://www.naver.com')">
-          Go Naver <br />
-          (new window)
-        </button>
-        <button class="btn" onclick="location.href='./map.html'">Map</button>
-        <button
-          class="btn"
-          style="position: fixed; right: 20px"
-          onclick="window.open('./ghost.html')"
-        >
-          Go ghost
-        </button>
-      </div>
-    </div>
-
-    <script>
-      // getElementById 사용
-      // let video = document.getElementById("myVideo");
-      // let btn = document.getElementById("myBtn");
-      // function myFunction() {
-      //   if (video.paused) {
-      //     video.play();
-      //     btn.innerHTML = "Pause";
-      //   } else {
-      //     video.pause();
-      //     btn.innerHTML = "Play";
-      //   }
-      // }
-
-      // querySelector 사용
-      let a = (document.querySelector("video").id = myVideo);
-      let b = (document.querySelector("button").id = myBtn);
-      // console.log(b);
-      function myFunction() {
-        if (a.paused) {
-          a.play();
-          b.innerHTML = "Pause";
-        } else {
-          a.pause();
-          b.innerHTML = "Play";
-        }
-      }
-    </script>
+    <main>
+      <h1>umcondo's storage!!</h1>
+      <ul>
+        <li><a href="cat.html">고양이사이트</a></li>
+        <li><a href="snow_ghost.html">유령</a></li>
+        <li><a href="map.html">카카오지도 API</a></li>
+        <li><a href="mapo_Join.html">마포회원가입</a></li>
+        <li><a href="mapo_login.html">마포로그인</a></li>
+        <li><a href="typing_effect.html">타이핑이펙트</a></li>
+        <li><a href="3dButton.html">3D버튼</a></li>
+        <li><a href="nav_underbar.html">nav클릭 언더바</a></li>
+        <li><a href="starbucks.html">스타벅스</a></li>
+        <li><a href="galaxy_page.html">갤럭시 페이지</a></li>
+        <li>
+          <a href="./bbcCloneCoding/index.html">인터렉티브 웹 클론코딩</a>
+        </li>
+      </ul>
+    </main>
   </body>
 </html>
