@@ -1,0 +1,44 @@
+html {
+  height: 100vh;
+}
+
+body {
+  background: #000;
+  height: 500vh;
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  color: white;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  max-width: 100vw;
+  max-height: 100vh;
+  transform: translate(-50%, -50%);
+  margin: auto;
+}
+
+article {
+  color: white;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+h2,
+h1 {
+  margin: 0;
+}
+article > h2 {
+  font-size: 1.5em;
+  letter-spacing: -2px;
+  margin-bottom: 10px;
+}
+article > h1 {
+  font-size: 7em;
+  letter-spacing: -10px;
+  font-weight: 900;
+}
