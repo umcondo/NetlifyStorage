@@ -3,7 +3,7 @@ const context = canvas.getContext("2d");
 const html = document.querySelector("html");
 // console.log(context);
 
-const frameCount = 132;
+const frameCount = 131;
 
 const currentFrame = (index) =>
   `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/02-head-bob-turn/${index
