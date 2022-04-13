@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+nav {
+  display: flex;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  height: 400px;
+}
+.item {
+  transition: 1s;
+  position: relative;
+}
+
+.item:hover {
+  cursor: pointer;
+}
+
+#colorBase {
+  position: absolute;
+  height: 4px;
+  background-color: #ffc0cb;
+  transition: 0.5s;
+}
+#colorBase2 {
+  position: absolute;
+  height: 4px;
+  background-color: #b0e0e6;
+  transition: 0.5s;
+}

@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
+}
+
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
+    url("../img/galaxy.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 25px 0;
+  align-items: center;
+  font-family: "Rubik Wet Paint", cursive;
+}
+
+nav > .nav-item:nth-child(1) {
+  font-size: 2em;
+}
+
+nav > .nav-item:nth-child(1):hover,
+nav > .nav-item:nth-child(2) > div:hover {
+  cursor: pointer;
+}
+nav > .nav-item:nth-child(2) > div {
+  transition: 1s;
+}
+nav > .nav-item:nth-child(2) > div:hover {
+  color: blue;
+}
+nav > .nav-item:nth-child(2) {
+  display: flex;
+  gap: 30px;
+}
+
+article {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  text-align: center;
+}
+article > h1 {
+  font-size: 3em;
+  font-family: "Rubik Wet Paint", cursive;
+  letter-spacing: 10px;
+}
+article > p {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.2em;
+}
+article button {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border: 2px solid white;
+  border-radius: 15px;
+  background-color: transparent;
+  transition: 1s;
+  outline: none;
+}
+article button:hover {
+  cursor: pointer;
+  background-color: white;
+  color: black;
+}

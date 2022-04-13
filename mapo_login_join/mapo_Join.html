@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <style>
+        th{
+            text-align: right;
+        }
+        table, td, th {
+            padding: 3px;
+        }
+        td{
+            padding-left: 30px;
+        }
+        input{
+            height: 30px;
+            padding: 0;
+            margin: 0;
+        }
+        input[type=radio], input[type=checkbox]{
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+        }
+        select{
+            height:34px;
+            border-width: 2px;
+            width: 180px;
+            padding:0;
+            font-size:18px;
+            
+        }
+        .b{
+            width:90px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        img {
+            position: relative;
+            top: 10px;
+            width:200px;
+            height:60px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img src="https://w.namu.la/s/4e4bd0fdf08d0e26df5659e3d029cf41a4baf3e2938ea394671c24ca3247cc74352716c5c5ff2e64282b3cea5c365339d090818f467e5b4ef988981da1453ed5a1299da9ff6cd80d87baf7da206ff364" alt="logo">
+        <h1 style="display:inline-block; margin-left:30px;">2022 마포형 청년 일자리 사업 홈페이지 회원가입</h1>
+    </div>
+
+    <div style="border: 1px solid; padding: 0 20px 20px 40px;">
+        <form action="/">
+            <table>
+                <tr>
+                    <th><label for="ID">아이디</label></th>
+                    <td><input type="text" id="ID" name="ID" placeholder="아이디를 입력하세요" maxlength="12">
+                        <input class="b type="button" onclick="alert('아이디를 입력하세요')" value="중복확인">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="PW">패스워드</label></th>
+                    <td><input type="password" id="PW" name="PW" maxlength="12"></td>
+                    
+                </tr>
+                <tr>
+                    <th><label for="PW-2">패스워드확인</label></th>
+                    <td><input type="password" id="PW-2" name="PW-2" maxlength="12"></td>
+                 
+                </tr>
+                <tr>
+                    <th><label for="name">이름</label></th>
+                    <td><input type="text" id="name" name="name" maxlength="12"></td>
+                    
+                </tr>
+                <tr>
+                    <th><label for="phonenum">연락처</label></th>
+                    <td>
+                        <select style="border:1px solid black; width: 100px;" name="phonenum1" id="phonenum1">
+                            <option value="">-- 선택 --</option>
+                            <option value="">010</option>
+                            <option value="">011</option>
+                            <option value="">070</option>
+                        </select>
+                        - <input style="width: 100px;" type="number" name="phonenum2" maxlength="12">
+                        - <input style="width: 100px;" type="number" name="phonenum3" maxlength="12">
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <th>성별</th>
+                    <td>
+                        <input type="radio" id="sex1" name="sex" value="woman">
+                        <label style="margin-right:30px" for="sex1">여성</label>
+                        <input type="radio" id="sex2" name="sex" value="man" checked>
+                        <label for="sex2">남성</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="email">이메일</label></th>
+                    <td>
+                        <input type="text" id="email" name="email" maxlength="15">
+                        <label for="email2">@</label>
+                        <select name="email2" id="email2">
+                            <option value="">-- 선택하세요 --</option>
+                            <option value="naver">naver.com</option>
+                            <option value="gmail">gmail.com</option>
+                            <option value="daum">daum.net</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th rowspan="3">소속팀</th>
+                    <td>
+                        <input type="radio" id="team1" name="team" value="design">
+                        <label for="team">캐릭터디자인</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" id="team2" name="team" value="app">
+                        <label for="team">앱개발 및 UX/UI</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td  style="padding-bottom: 15px;">    
+                        <input type="radio" id="team3" name="team" value="contents">
+                        <label for="team">방송콘텐츠</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th rowspan="4" style="padding-bottom: 30px;">희망진로</th>
+                    <td>
+                        <input type="checkbox" id="dream1" name="dream1" value="founded">
+                        <label for="dream1">창업</label><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" id="dream2" name="dream2" value="startup">
+                        <label for="dream2">스타트업 취업</label><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" id="dream3" name="dream3" value="major">
+                        <label for="dream3">대기업 공채</label><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" id="dream4" name="dream4" value="other">
+                        <label style="padding-right:120px;" for="dream4">기타</label>
+                        <input style="padding-right:55px;" type="text" placeholder="  상세 내용을 입력하세요" maxlength="15">
+                    </td>
+                </tr>
+                <tr>
+                    <th style="padding-bottom:80px;">지원동기</th>
+                    <td><textarea style="resize:none; width:400px; height:100px;" name="motivation"></textarea></td>
+                </tr>
+            </table>
+            <div style="margin-left:350px;">
+                <input class="b" type="button" onclick="alert('가입되었습니다')" value="가입">
+                <input class="b" type="button" onclick="alert('취소되었습니다')" value="취소">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

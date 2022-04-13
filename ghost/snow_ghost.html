@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>snow+ghost</title>
+    <style>
+      body {
+        height: 300vh;
+        background: radial-gradient(
+          ellipse at bottom,
+          #1b2735 0%,
+          #090a0f 100%
+        );
+        /* overflow: hidden; */
+      }
+      .snow {
+        width: 10px;
+        height: 10px;
+        background: #fff;
+        border-radius: 50%;
+        animation: snow 10s linear infinite;
+        opacity: 0;
+      }
+      .snow:nth-of-type(2n) {
+        width: 7px;
+        height: 7px;
+        animation-duration: 7s;
+        animation-delay: 1s;
+      }
+
+      .snow:nth-of-type(2n + 1) {
+        animation-duration: 8s;
+        animation-delay: 2s;
+      }
+
+      .snow:nth-of-type(9n) {
+        animation-duration: 9s;
+        animation-delay: 3s;
+      }
+
+      @keyframes snow {
+        0% {
+          opacity: 0;
+          transform: translateY(0);
+        }
+        20% {
+          opacity: 1;
+          transform: translate(-15px, 20vh);
+        }
+        40% {
+          opacity: 1;
+          transform: translate(15px, 40vh);
+        }
+        60% {
+          opacity: 1;
+          transform: translate(-15px, 60vh);
+        }
+        80% {
+          opacity: 1;
+          transform: translate(0, 80vh);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(100vh);
+        }
+      }
+      .ghost {
+        animation: moveUpDown 3s infinite;
+        position: absolute;
+      }
+
+      @keyframes moveUpDown {
+        0% {
+          margin-top: 0px;
+        }
+        50% {
+          margin-top: 50px;
+          opacity: 0;
+          transform: scale(2);
+        }
+        100% {
+          margin-top: 0px;
+        }
+      }
+      @keyframes close {
+        0% {
+          /* transform: scale(1); */
+        }
+        50% {
+          transform: scale(2);
+          height: 2px;
+        }
+        100% {
+          /* transform: scale(1); */
+        }
+      }
+
+      @keyframes smile {
+        50% {
+          width: 80px;
+          margin-left: 0;
+          /* margin-left: auto; */
+          /* margin-right: auto; */
+          border-bottom-left-radius: 50%;
+          border-bottom-right-radius: 50%;
+        }
+      }
+      @keyframes long {
+        50% {
+          height: 30px;
+        }
+      }
+      @keyframes long2 {
+        50% {
+          height: 50px;
+          top: -20px;
+        }
+      }
+      .ghost .body {
+        width: 120px;
+        height: 160px;
+        background-color: #fff;
+        border-top-left-radius: 45%;
+        border-top-right-radius: 45%;
+        position: relative;
+      }
+      .ghost .body .face {
+        display: flex;
+        width: 70px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        position: absolute;
+        top: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .ghost .body .face .eye {
+        width: 19px;
+        height: 19px;
+        border-radius: 50%;
+        background-color: #333;
+        animation: close 2s infinite;
+      }
+      .ghost .body .face .mouse {
+        width: 33px;
+        height: 15px;
+        background-color: #333;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        margin-left: 18px;
+        margin-top: 13px;
+        animation: smile 2s infinite;
+      }
+
+      .ghost .bottom {
+        display: flex;
+      }
+      .ghost .bottom .leg {
+        background-color: #fff;
+        width: 24px;
+        height: 15px;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        animation: long 2s infinite;
+      }
+      .ghost .bottom .leg:nth-child(2n) {
+        background-color: #000;
+        position: relative;
+        top: -6px;
+        border-radius: 50%;
+        animation: long2 2s infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ghost">
+      <div class="body">
+        <div class="face">
+          <div class="eye"></div>
+          <div class="eye"></div>
+          <div class="mouse"></div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="leg"></div>
+        <div class="leg"></div>
+        <div class="leg"></div>
+        <div class="leg"></div>
+        <div class="leg"></div>
+      </div>
+    </div>
+    <script>
+      // 유령 위치 변경
+      document.body.addEventListener("mousemove", function (e) {
+        // console.log(e);
+        document.querySelector(".ghost").style.left = e.pageX + "px";
+        document.querySelector(".ghost").style.top = e.pageY + "px";
+      });
+
+      //   눈만들기
+
+      function createSnow() {
+        const el = document.createElement("div");
+        el.classList.add("snow");
+        el.style.marginLeft = randomPosition() + "px";
+        document.body.appendChild(el);
+      }
+      function randomPosition() {
+        return Math.floor(Math.random() * window.innerWidth);
+      }
+      //   눈의 양조절
+      for (i = 1; i < 300; i++) {
+        createSnow();
+      }
+    </script>
+  </body>
+</html>

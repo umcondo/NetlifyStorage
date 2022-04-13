@@ -1,0 +1,30 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #202124;
+    color:white;
+    font-size: 14px;
+    font-family: Apple SD Gothic Neo,arial,sans-serif;
+    width:100%;
+    height:100%;
+    margin:0;
+    min-width: 400px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.body-container{
+    display: flex;
+    flex-direction: column;
+    height:100%;
+    
+}
