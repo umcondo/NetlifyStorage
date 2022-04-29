@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>망원 런닝 메이트</title>
+    <script
+      src="https://kit.fontawesome.com/2e802f42d3.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=16c159fd8e6cf9b9dc0f34f5922c2f5a"
+    ></script>
+    <script src="js/courseData.js" defer></script>
+    <script src="js/mapData.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/map.js" defer></script>
+  </head>
+  <body>
+    <!-- 첫화면 -->
+    <div class="first__page">
+      <div class="first__page__container">
+        <h2>######</h2>
+        <h1>망원 런닝 메이트</h1>
+        <p>내 취향에 맞는 망원, 마포의 런닝 코스를 알아보세요 !!</p>
+        <button>러닝 코스 추천 시작하기</button>
+      </div>
+    </div>
+
+    <!-- 질문 페이지 -->
+    <div class="container">
+      <!-- 진행바 -->
+      <header>
+        <div class="progress">
+          <div class="progress-text"></div>
+          <div class="progress-bar">
+            <div class="progress-image">
+              <i class="fa-solid fa-person-running fa-3x"></i>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- 질문내용 -->
+      <div class="choice">
+        <img class="choice-img" src="./img/runner.png" alt="" />
+        <div class="choice-text">
+          <h1></h1>
+        </div>
+        <div class="choice-box">
+          <div class="choice-items" onclick="nextQuestion(event)"></div>
+          <div class="choice-items" onclick="nextQuestion(event)"></div>
+        </div>
+        <button class="back_btn" onclick="backwardBtn()">뒤로가기</button>
+      </div>
+    </div>
+
+    <!-- 애니메이션 화면 -->
+    <div class="result_animation">
+      <div class="animation_content">결과 생성 중....</div>
+    </div>
+    
+    <!-- 결과 화면 -->
+    <div class="result">
+      <h2 class="result__head">러닝 코스 추천 결과</h2>
+      <div class="choice-result"></div>
+      <div class="result_text"></div>
+      <div class="result_btn_container">
+      <div class="choice-btn">
+        <button onclick="reStartBtn()">다시하기</button>
+        <button>공유하기</button>
+        <p><a href="#">그 밖의 마포의 러닝루트를 알고싶으세요?</a></p>
+      </div>
+    </div>
+  </body>
+</html>
