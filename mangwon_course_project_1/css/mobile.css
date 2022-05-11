@@ -1,0 +1,265 @@
+@media screen and (max-width: 950px) {
+  .result_map_container {
+    width: 100%;
+  }
+  #map {
+    margin-bottom: 0px;
+    width: 100%;
+    height: 400px;
+  }
+  .result {
+    padding: 10px 0;
+  }
+  .result_text {
+    width: 90vw;
+  }
+  .result_text p {
+    border-bottom: 1px solid #ecf0f2;
+  }
+  .result_animation {
+    transform: scale(0.8);
+  }
+  .result_animation h1 {
+    font-size: 2.2em;
+    bottom: 18%;
+  }
+  .result_head_container {
+    width: 95%;
+  }
+  .result_course_path {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  body {
+    overflow: visible;
+  }
+  /* 첫페이지 */
+  .first_page_container {
+    gap: 15px;
+  }
+
+  .first_page_container h2 {
+    font-size: 2em;
+  }
+  .first_page_container h1 {
+    font-size: 3em;
+  }
+  .first_page_container p {
+    font-size: 1em;
+  }
+  .first_page_container button {
+    padding: 15px 20px;
+    font-size: 1.5em;
+    margin-top: 20px;
+  }
+  /* 질문페이지 */
+  .question_container .question_content .question_img {
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+  /* 질문 제목 */
+  .question_container .question_content .question_head {
+    margin-bottom: 30px;
+    padding: 35px 60px;
+    font-size: 13px;
+  }
+  .question_back_btn {
+    padding: 10px 20px;
+    margin-top: 15px;
+    font-size: 13px;
+  }
+  .question_container .question_content .question_text_box {
+    gap: 15px;
+  }
+  /* 질문 1,2 */
+  .question_container .question_content .question_text_box .question_text {
+    width: 350px;
+    min-height: 78px;
+    padding: 10px 30px;
+
+    font-size: 1em;
+  }
+
+  /* 애니메이션 */
+  .result_animation {
+    transform: scale(1);
+  }
+  .result_animation h1 {
+    bottom: 30%;
+    font-size: 1.5em;
+  }
+  /* 결과페이지*/
+  .result_head {
+    font-size: 1.7em;
+  }
+}
+
+/* 모바일 반응형 */
+
+@media screen and (max-width: 500px) {
+  body {
+    overflow: visible;
+  }
+  /* 첫페이지 */
+  .first_page_container {
+    gap: 15px;
+  }
+  .first_page_container h2 {
+    font-size: 1.5em;
+  }
+  .first_page_container h1 {
+    font-size: 2.5em;
+  }
+  .first_page_container p {
+    font-size: 0.9em;
+  }
+  .first_page_container p span {
+    margin-left: 5px;
+  }
+  .first_page_container button {
+    padding: 20px 25px;
+    font-size: 1.2em;
+
+    margin-top: 15px;
+  }
+  /* 질문페이지 */
+  .question_container {
+    margin-top: -80px;
+  }
+  header .progress {
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  header .progress .progress-bar {
+    width: 300px;
+  }
+
+  header .progress .progress-bar .progress-image img {
+    transform: scale(0.8);
+  }
+
+  header .progress .progress-text {
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+  .question_container .question_content {
+    margin-top: -15px;
+  }
+  .question_container .question_content .question_img {
+    width: 80px;
+    margin-bottom: 20px;
+  }
+  /* 질문 제목 */
+  .question_container .question_content .question_head {
+    margin-bottom: 30px;
+    padding: 20px 10px;
+    font-size: 11px;
+    max-width: 300px;
+    min-height: 100px;
+    letter-spacing: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .question_back_btn {
+    bottom: 80px;
+    padding: 10px 20px;
+    margin-top: 15px;
+    font-size: 13px;
+  }
+  .question_container .question_content .question_text_box {
+    gap: 10px;
+  }
+  /* 질문 1,2 */
+  .question_container .question_content .question_text_box .question_text {
+    max-width: 280px;
+    min-height: 70px;
+    padding: 5px 25px;
+
+    font-size: 1em;
+  }
+  .question_back_btn {
+    bottom: 20px;
+  }
+
+  /* 애니메이션 */
+
+  .result_animation h1 {
+    bottom: 35%;
+    font-size: 1.3em;
+  }
+
+  /* 결과페이지 */
+  #map {
+    margin-bottom: 0px;
+    width: 100%;
+    height: 300px;
+  }
+  .result {
+    padding: 10px 0;
+  }
+  .result_head {
+    font-size: 1.4em;
+    margin-bottom: 5px;
+  }
+  .result_head .courseNameNum {
+    padding: 4px 10px;
+    margin-bottom: 0px;
+  }
+
+  .result_head_container {
+    padding-bottom: 5px;
+  }
+  .result_course_destination {
+    display: none;
+  }
+  .result_course_path {
+    font-size: 13px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .result_map_container {
+    margin-bottom: 10px;
+  }
+  .result_text {
+    width: 95vw;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  .result_text .courseTimeInfo {
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 5px;
+  }
+  .result_text .courseTimeInfo li {
+    text-align: center;
+  }
+  .result_text .courseTimeInfo i {
+    font-size: 1.3em;
+  }
+  .result_text .courseTimeInfo .number {
+    font-weight: bold;
+    color: #000;
+    font-size: 1.3em;
+  }
+
+  .result_btn_container button {
+    padding: 10px 30px;
+  }
+
+  .dotOverlay {
+    display: none;
+  }
+  #toggle_btn {
+    display: none;
+  }
+  #toggle_btn {
+    display: none;
+  }
+}

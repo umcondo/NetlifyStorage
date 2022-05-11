@@ -1,6 +1,8 @@
 /* 첫페이지 */
-document.querySelector(".first__page button").addEventListener("click", () => {
-  document.querySelector(".first__page").style.display = "none";
+// 버튼 누르면 첫화면 사라지고 질문페이지 생성
+document.querySelector(".first_page button").addEventListener("click", () => {
+  document.querySelector(".first_page").style.display = "none";
+  makeQuestion(currentIndex);
 });
 
 /* 질문페이지 */
@@ -11,24 +13,27 @@ let currentQuestion; // 현재 질문 객체
 
 let resultBox = []; // 답변을 모아두는 박스
 
-makeQuestion(currentIndex); // 첫 페이지를 보여줌
-
 // 현재 인덱스의 질문, 내용, 진행도, 다시하기버튼을 보여주는 함수
 function makeQuestion(idx) {
+  document.querySelector(".question_container").style.display = "flex";
+
   currentQuestion = Question[currentIndex]; // 현재 질문 객체
 
+  let curImg = currentQuestion.img;
   let curTitle = currentQuestion.question;
   let curAnswer1 = currentQuestion.answer[0].text;
   let curAnswer2 = currentQuestion.answer[1].text;
 
-  let choiceText = document.querySelector(".choice-text > h1"); // 질문제목
+  let choiceImg = document.querySelector(".question_img");
+  let choiceText = document.querySelector(".question_head > h1"); // 질문제목
   let choiceItems1 = document.querySelector(
-    ".choice-box > .choice-items:nth-child(1)" // 답변내용1
+    ".question_text_box > .question_text:nth-child(1)" // 답변내용1
   );
   let choiceItems2 = document.querySelector(
-    ".choice-box > .choice-items:nth-child(2)" // 답변내용2
+    ".question_text_box > .question_text:nth-child(2)" // 답변내용2
   );
 
+  choiceImg.src = curImg;
   choiceText.innerHTML = curTitle;
   choiceItems1.innerHTML = curAnswer1;
   choiceItems2.innerHTML = curAnswer2;
@@ -45,7 +50,8 @@ function nextQuestion(event) {
   let curValue1 = currentQuestion.answer[0].value[0];
   let curValue2 = currentQuestion.answer[1].value[0];
 
-  event.target.innerText === currentQuestion.answer[0].text
+  event.target.innerText.slice(0, 3) ===
+  currentQuestion.answer[0].text.slice(0, 3)
     ? resultBox.push(curValue1)
     : resultBox.push(curValue2);
 
@@ -73,13 +79,13 @@ function progressBar(idx) {
   let progressImage = document.querySelector(
     "header .progress .progress-bar .progress-image" // 진행바
   );
-  progressImage.style.width = `${((idx + 1) / questionCount) * 100}%`; // 진행바
+  progressImage.style.width = `${(idx / (questionCount - 1)) * 100}%`; // 진행바
   progressText.innerHTML = `${idx + 1} / ${questionCount}`; // 진행도
 }
 
 // 뒤로가기 버튼 생성함수
 function makeBackBtn() {
-  let backBtn = document.querySelector(".back_btn"); // 뒤로가기 버튼
+  let backBtn = document.querySelector(".question_back_btn"); // 뒤로가기 버튼
 
   currentIndex < questionCount && currentIndex > 0
     ? (backBtn.style.visibility = " visible")
@@ -87,7 +93,9 @@ function makeBackBtn() {
 }
 
 /* 결과페이지 */
-// "beginner" , "intermediate", "Hangang", "inland", "loud", "quiet"
+// 난이도 : "beginner - b" , "intermediate - i"
+// 한강, 내륙 : "Hangang" - H , "inland" - i,
+// 혼잡도 : "loud" - l, "quiet"- q
 
 // 결과값 함수
 const resultValue = () => {
@@ -113,47 +121,64 @@ const resultValue = () => {
   }
 };
 
-const container = document.querySelector(".container"); //질문,답변 전체 div
-const choiceResult = document.querySelector(".choice-result"); //결과
-const resultPage = document.querySelector(".result"); // 결과 div
+const choiceResult = document.querySelector(".result_map_container"); //결과
+const resultPage = document.querySelector(".result"); //결과
 
 // 결과를 출력하는 함수
 const makeResult = () => {
-  container.style.display = "none";
-
   resultPage.style.display = "flex";
 
   const resultIdx = resultValue();
   const course = CourseData[resultIdx];
+
   const courseDistance = course.courseDistance;
   const courseName = course.courseName;
   const courseInfo = course.courseInfo;
+  const courseDestination = course.courseDestination;
+  const coursePath = course.coursePath;
+  const courseId = course.id;
 
   // 지도
-  choiceResult.innerHTML = `<div id="map" style="width:1000px;height:500px;"></div>`;
-  // map();
-  showCourse(resultIdx);
-  let newDiv = document.createElement("div");
-  choiceResult.append(newDiv);
+  choiceResult.innerHTML = `<div id="map" class="map_style"></div>`;
+  showCourse(resultIdx); // map.js에 있는 코스보여주는 함수
 
   // 결과
-  let resultText = `<div class="result_text">`;
-  resultText = `<h1>코스 : ${courseName} </h1>`;
-  resultText += `<h3>코스번호 : ${resultIdx}</h3>`;
-  resultText += `<h4>코스길이 : ${courseDistance}</h4>`;
-  resultText += `<p>코스정보 : ${courseInfo}</p>`;
-  resultText += `</div>`;
+  // 코스 제목
+  const resultHead = document.querySelector(".result_head");
+  let resultHeadContent = `<span class="courseNameNum">${
+    courseId + 1
+  }코스</span>`;
+  resultHeadContent += `<span class="courseName">${courseName}</span>`;
+  resultHead.innerHTML = resultHeadContent;
 
-  document.querySelector(".result_text").innerHTML = resultText;
+  // 코스 목적지
+  const resultCourseDestination = document.querySelector(
+    ".result_course_destination span:nth-child(1)"
+  );
+  resultCourseDestination.innerText = courseDestination;
 
-  let choiceBtn = document.querySelector(".result_btn_container"); // 다시하기버튼
+  // 코스 대략적 거리
+  const resultCourseDistance = document.querySelector(
+    ".result_course_destination span:nth-child(2)"
+  );
+  resultCourseDistance.innerText = courseDistance;
+
+  // 코스 경로
+  const resultCoursePath = document.querySelector(".result_course_path");
+  resultCoursePath.innerHTML = `${coursePath}`;
+
+  // 코스 상세
+  let resultText = `<p>&nbsp;${courseInfo}</p>`;
+  document.querySelector(".result_text").innerHTML += resultText;
+
+  // 다시하기버튼
+  let choiceBtn = document.querySelector(".result_btn_container");
   choiceBtn.style.display = "block";
 };
-// 지도를 출력하는 함수
 
 // 다시하기 함수
 const reStartBtn = () => {
-  container.style.display = "block";
+  document.querySelector(".question_container").style.display = "block"; //질문,답변 전체 div
   resultPage.style.display = "none";
   resultBox = [];
   makeQuestion(0);
@@ -161,9 +186,11 @@ const reStartBtn = () => {
 
 // 애니메이션 페이지 2초 후 없애버리기
 function resultAnimation() {
-  document.querySelector(".result_animation").style.display = "block";
+  document.querySelector(".question_container").style.display = "none"; //질문,답변 전체 div
+  document.querySelector(".result_animation").style.display = "block"; // animation page
+  makeResult();
+
   setTimeout(() => {
     document.querySelector(".result_animation").style.display = "none";
-    makeResult();
   }, 2000);
 }

@@ -1,7 +1,50 @@
+/*
+ <전체적인 코드 정보>
+
+1. runningCourse 함수
+  1) 점,선 찍고 표시
+    (1) 점찍기
+    (2) 선표시
+  2) 총 거리계산
+  3) 총소요시간, 거리 오버레이 생성
+  4) 지도 조작 버튼 생성
+    (1) 오버레이 토글 버튼 생성
+    (2) 현위치 버튼 생성
+    (3) 지도타입 버튼 생성
+    (4) 지도, 확대 축소 버튼 생성
+  5) 출발 도착 마커 생성
+    (1) 출발 마커 생성
+    (2) 도착 마커 생성
+    (3) 출발, 도착 마커 z-index 지정
+
+2. getTimeHtml 함수
+  1) 데스크탑 총거리, 총소요시간 오버레이 생성
+  2) 모바일 총거리, 총소요시간 div 생성 (desktop에선 display:none)
+
+3. toggleBtn 함수
+  1) 오버레이 숨김, 보임 조작
+
+4. 현위치 버튼 생성 관련 함수들
+  1) 현위치 버튼 생성
+  2) 현위치 마커 생성
+
+5. 지도 타입변화 함수
+
+6. 지도 확대, 축소 함수
+  1) 지도 확대 함수
+  2) 지도 축소 함수
+
+7. 브라우저 리사이즈 시 좌표맵 이동
+*/
+
 // 인덱스의 코스데이터를 불러와서 보여주는 함수
 function showCourse(idx) {
   runningCourse(coordinates[idx].track, coordinates[idx].MapCenter);
 }
+
+// 브라우저 리사이즈 시 좌표맵 이동시키기 위해 전역변수 설정
+var map = "";
+let centerPoint = "";
 
 // 데이터를 바탕으로 지도에 코스를 그려주는 함수
 function runningCourse(coordinates, MapCenter) {
@@ -12,20 +55,9 @@ function runningCourse(coordinates, MapCenter) {
       level: MapCenter.mapDepthLevel, // 지도의 확대 레벨
     };
 
-  var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+  centerPoint = new kakao.maps.LatLng(MapCenter.lng, MapCenter.lat);
 
-  /* 컨트롤 추가 */
-  // 지도 타입 변경 컨트롤을 생성한다
-  var mapTypeControl = new kakao.maps.MapTypeControl();
-
-  // 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
-  map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
-  // 지도에 확대 축소 컨트롤을 생성한다
-  var zoomControl = new kakao.maps.ZoomControl();
-
-  // 지도의 우측에 확대 축소 컨트롤을 추가한다
-  map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+  map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
   /* 러닝 코스 점찍고, 선연결 */
   var linePath = []; // 러닝 코스
@@ -46,10 +78,11 @@ function runningCourse(coordinates, MapCenter) {
     // 지도에 표시할 선을 생성합니다
     var polyline = new kakao.maps.Polyline({
       path: linePath, // 선을 구성하는 좌표배열 입니다
-      strokeWeight: 5, // 선의 두께 입니다
+      endArrow: true,
+      strokeWeight: 7, // 선의 두께 입니다
       strokeColor: "red", // 선의 색깔입니다
       strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-      strokeStyle: "shortdash", // 선의 스타일입니다
+      strokeStyle: "solid", // 선의 스타일입니다
     });
 
     // 현재 좌표까지의 거리
@@ -105,14 +138,47 @@ function runningCourse(coordinates, MapCenter) {
   mapContainer.appendChild(content);
 
   /* 오버레이 토글버튼 생성 */
-  let overlayToggleBtn = `<button id="toggle_btn" class="btn" onclick="toggleBtn()">`;
-  overlayToggleBtn += `거점 숨기기/보이기`;
+  let overlayToggleBtn = `<button id="toggle_btn" class="overlay_toggle_btn" onclick="toggleBtn()">`;
+  overlayToggleBtn += `거점 숨기기`;
   overlayToggleBtn += `</button>`;
 
   let overlayToggleBtnContainer = document.createElement("article");
   overlayToggleBtnContainer.innerHTML = overlayToggleBtn;
 
   mapContainer.appendChild(overlayToggleBtnContainer);
+
+  /* 현위치 버튼 생성 */
+  let currentLocationBtn = `<button class='current_location_btn' onclick='currentLocation()'>`;
+  currentLocationBtn += `<i class="fa-solid fa-location-crosshairs"></i>`;
+  currentLocationBtn += `</button>`;
+
+  let currentLocationContainer = document.createElement("div");
+  currentLocationContainer.classList = "currentLocationContainer";
+  currentLocationContainer.innerHTML = currentLocationBtn;
+
+  mapContainer.appendChild(currentLocationContainer);
+
+  // 지도타입 컨트롤 버튼 생성
+  let mapTypeBtn = `<span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')">지도</span>`;
+  mapTypeBtn += `<span id="btnSkyview" class="btn" onclick="setMapType('skyview')">스카이뷰</span>`;
+
+  const mapTypeContainer = document.createElement("div");
+  mapTypeContainer.classList = `custom_typecontrol radius_border`;
+  mapTypeContainer.innerHTML = mapTypeBtn;
+  mapContainer.appendChild(mapTypeContainer);
+
+  // 지도 확대, 축소 컨트롤 버튼 생성
+  let mapSizeBtn = `<span onclick="zoomIn()">`;
+  mapSizeBtn += `<img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대"/>`;
+  mapSizeBtn += `</span>`;
+  mapSizeBtn += `<span onclick="zoomOut()">`;
+  mapSizeBtn += `<img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" alt="축소"/>`;
+  mapSizeBtn += `</span>`;
+
+  const mapSizeContainer = document.createElement("div");
+  mapSizeContainer.classList = `custom_zoomcontrol radius_border`;
+  mapSizeContainer.innerHTML = mapSizeBtn;
+  mapContainer.appendChild(mapSizeContainer);
 
   /* 출발,도착 마커 */
   var startMarker =
@@ -122,6 +188,8 @@ function runningCourse(coordinates, MapCenter) {
 
   var startSrc =
       "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/red_b.png", // 출발 마커이미지의 주소입니다
+    // var startSrc =
+    //     "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/flagImg/blue_b.png", // 출발 마커이미지의 주소입니다
     startSize = new kakao.maps.Size(50, 45), // 출발 마커이미지의 크기입니다
     startOption = {
       offset: startMarker, // 출발 마커이미지에서 마커의 좌표에 일치시킬 좌표를 설정합니다 (기본값은 이미지의 가운데 아래입니다)
@@ -147,6 +215,8 @@ function runningCourse(coordinates, MapCenter) {
 
   var arriveSrc =
       "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/blue_b.png", // 도착 마커이미지 주소입니다
+    // var arriveSrc =
+    //     "https: //t1.daumcdn.net/localimg/localimages/07/2018/pc/flagImg/blue_b.png", // 도착 마커이미지 주소입니다
     arriveSize = new kakao.maps.Size(50, 45), // 도착 마커이미지의 크기입니다
     arriveOption = {
       offset: new kakao.maps.Point(15, 45), // 도착 마커이미지에서 마커의 좌표에 일치시킬 좌표를 설정합니다 (기본값은 이미지의 가운데 아래입니다)
@@ -189,16 +259,16 @@ function runningCourse(coordinates, MapCenter) {
 // HTML Content를 만들어 리턴하는 함수입니다
 function getTimeHTML(distance) {
   // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
-  var walkkTime = (distance / 67) | 0;
+  var walkTime = (distance / 67) | 0;
   var walkHour = "",
     walkMin = "";
 
   // 계산한 도보 시간이 60분 보다 크면 시간으로 표시합니다
-  if (walkkTime > 60) {
+  if (walkTime > 60) {
     walkHour =
-      '<span class="number">' + Math.floor(walkkTime / 60) + "</span>시간 ";
+      '<span class="number">' + Math.floor(walkTime / 60) + "</span>시간 ";
   }
-  walkMin = '<span class="number">' + (walkkTime % 60) + "</span>분";
+  walkMin = '<span class="number">' + (walkTime % 60) + "</span> 분";
 
   // 달리기 평균 시속은 10km/h 이고 이것을 기준으로 달리기 분속은 167m/min입니다
   var runningTime = (distance / 167) | 0;
@@ -210,7 +280,7 @@ function getTimeHTML(distance) {
     runningHour =
       '<span class="number">' + Math.floor(runningTime / 60) + "</span>시간 ";
   }
-  runningMin = '<span class="number">' + (runningTime % 60) + "</span>분";
+  runningMin = '<span class="number">' + (runningTime % 60) + "</span> 분";
 
   distance = Math.round((distance / 1000) * 100) / 100;
   // 거리와 도보 시간, 달리기 시간을 가지고 HTML Content를 만들어 리턴합니다
@@ -237,9 +307,29 @@ function getTimeHTML(distance) {
   var contentContainer = document.createElement("article");
   contentContainer.innerHTML = content;
 
+  // 모바일 결과페이지 추가
+  var courseTimeInfo = '<ul class="courseTimeInfo">';
+  courseTimeInfo += "    <li>";
+  courseTimeInfo +=
+    '        <span class="label">거리<br></span><span class="number">' +
+    distance +
+    " </span>km";
+  courseTimeInfo += "    </li>";
+  courseTimeInfo += "    <li>";
+  courseTimeInfo +=
+    '        <span class="label">도보<br></span>' + walkHour + walkMin;
+  courseTimeInfo += "    </li>";
+  courseTimeInfo += "    <li>";
+  courseTimeInfo +=
+    '        <span class="label">러닝(10km/h)<br></span>' +
+    runningHour +
+    runningMin;
+  courseTimeInfo += "</ul>";
+
+  document.querySelector(".result_text").innerHTML = courseTimeInfo;
+
   return contentContainer;
 }
-toggleBtn;
 
 // 오버레이 토글
 function toggleBtn() {
@@ -249,3 +339,125 @@ function toggleBtn() {
     )
     .forEach((elm) => elm.classList.toggle("toggle"));
 }
+
+/*  현위치 버튼  */
+let la = 0; // 현재 위도
+let lo = 0; // 현재 경도
+
+const options = {
+  enableHighAccuracy: true, // 실제 위치와의 오차 - 단위 M
+  timeout: 1000, // 위치를 반환하는데 걸리는 최대시간 (5초)
+  maximumAge: 0, // 항상 실시간 위치정보를 가져옴
+};
+
+const markerbox = [];
+
+//
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, error, options);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+function showPosition(position) {
+  la = position.coords.latitude;
+  lo = position.coords.longitude;
+
+  // 스무스하게 맵 이동
+  panTo();
+
+  // 현 위치 맵 마커 만들기
+  currentMarker();
+}
+
+function setCenter() {
+  // 이동할 위도 경도 위치를 생성합니다
+  var moveLatLon = new kakao.maps.LatLng(la, lo);
+
+  // 지도 중심을 이동 시킵니다
+  map.setCenter(moveLatLon);
+}
+function currentLocation() {
+  // 현위치 찾기
+  getLocation();
+}
+
+function panTo() {
+  // 이동할 위도 경도 위치를 생성합니다
+  var moveLatLon = new kakao.maps.LatLng(la, lo);
+
+  centerPoint = new kakao.maps.LatLng(la, lo);
+  // 지도 중심을 부드럽게 이동시킵니다
+  // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+  map.panTo(moveLatLon);
+}
+
+/* 현위치 마커 */
+function currentMarker() {
+  // 마커가 표시될 위치입니다
+
+  var imageSrc =
+      "https://t1.daumcdn.net/localimg/localimages/07/2018/mw/m640/ico_marker.png", // 마커이미지의 주소입니다
+    // var imageSrc = "./../img/circle-dot-solid.svg", // 마커이미지의 주소입니다
+    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
+    imageOption = { offset: new kakao.maps.Point(15, 15) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+  // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+  var markerImage = new kakao.maps.MarkerImage(
+      imageSrc,
+      imageSize,
+      imageOption
+    ),
+    markerPosition = new kakao.maps.LatLng(la, lo); // 마커가 표시될 위치입니다
+
+  // 마커를 생성합니다
+  var marker = new kakao.maps.Marker({
+    position: markerPosition,
+    image: markerImage, // 마커이미지 설정
+  });
+
+  markerbox.push(marker);
+
+  // 현재 마커빼고 다 삭제
+  markerbox.forEach((elm) => elm.setMap(null));
+  // 마커가 지도 위에 표시되도록 설정합니다
+  markerbox[markerbox.length - 1].setMap(map);
+}
+
+// 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
+function setMapType(maptype) {
+  var roadmapControl = document.getElementById("btnRoadmap");
+  var skyviewControl = document.getElementById("btnSkyview");
+  if (maptype === "roadmap") {
+    map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
+    roadmapControl.className = "selected_btn";
+    skyviewControl.className = "btn";
+  } else {
+    map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
+    skyviewControl.className = "selected_btn";
+    roadmapControl.className = "btn";
+  }
+}
+
+// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+function zoomIn() {
+  map.setLevel(map.getLevel() - 1);
+}
+
+// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+function zoomOut() {
+  map.setLevel(map.getLevel() + 1);
+}
+
+//브라우저 리사이즈시 좌표맵 중심 이동
+window.addEventListener("resize", () => {
+  if (map) {
+    map.panTo(centerPoint);
+  }
+});
